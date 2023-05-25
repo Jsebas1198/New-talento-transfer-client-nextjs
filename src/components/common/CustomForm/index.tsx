@@ -1,23 +1,20 @@
 'use client';
-import React, { useState } from 'react';
 import {
-  Box,
-  TextField,
   Button,
   FormControl,
   FormHelperText,
-  Select,
-  MenuItem,
-  Stack,
-  Typography,
   Grid,
+  Stack,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { ChangeEvent, useState } from 'react';
 
-import { IProps } from './IProps';
 import CustomButton from '../CustomButton';
+import { IProps } from './IProps';
 
 const CustomForm = ({
   register,
@@ -27,8 +24,41 @@ const CustomForm = ({
   date,
   handleDateChange,
   userImage,
+  user,
+  editUser,
 }: IProps) => {
-  const [datess, setDatess] = useState(null);
+  const [name, setName] = useState(user?.name || '');
+  const [lastName, setLastName] = useState(user?.lastName || '');
+  const [email, setEmail] = useState(user?.email || '');
+  const [phone, setPhone] = useState(user?.phone || '');
+
+  /**
+   * @description Maneja los cambios en el campo del nombre
+   */
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  /**
+   * @description Maneja los cambios en el campo del apellido
+   */
+  const handleLastNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setLastName(event.target.value);
+  };
+
+  /**
+   * @description Maneja los cambios en el campo del email
+   */
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  /**
+   * @description Maneja los cambios en el campo del telefono
+   */
+  const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPhone(event.target.value);
+  };
 
   return (
     <form
@@ -39,7 +69,7 @@ const CustomForm = ({
         flexDirection: 'column',
         gap: '20px',
       }}
-      onSubmit={handleSubmit(onFinishHandler)}
+      onSubmit={handleSubmit(user ? editUser : onFinishHandler)}
     >
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
@@ -54,7 +84,13 @@ const CustomForm = ({
             >
               Name
             </FormHelperText>
-            <TextField fullWidth variant="outlined" {...register('name', { required: true })} />
+            <TextField
+              fullWidth
+              defaultValue={user?.name ? name : ''}
+              onChange={user?.name ? handleNameChange : ''}
+              variant="outlined"
+              {...register('name', { required: true })}
+            />
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -69,7 +105,13 @@ const CustomForm = ({
             >
               Last name
             </FormHelperText>
-            <TextField fullWidth variant="outlined" {...register('lastName', { required: true })} />
+            <TextField
+              fullWidth
+              defaultValue={user?.lastName ? lastName : ''}
+              onChange={user?.lastName ? handleLastNameChange : ''}
+              variant="outlined"
+              {...register('lastName', { required: true })}
+            />
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -84,7 +126,13 @@ const CustomForm = ({
             >
               Email
             </FormHelperText>
-            <TextField fullWidth variant="outlined" {...register('email', { required: true })} />
+            <TextField
+              fullWidth
+              defaultValue={user?.email ? email : ''}
+              onChange={user?.email ? handleEmailChange : ''}
+              variant="outlined"
+              {...register('email', { required: true })}
+            />
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -99,7 +147,13 @@ const CustomForm = ({
             >
               Phone
             </FormHelperText>
-            <TextField fullWidth variant="outlined" {...register('phone', { required: true })} />
+            <TextField
+              fullWidth
+              defaultValue={user?.phone ? phone : ''}
+              onChange={user?.phone ? handlePhoneChange : ''}
+              variant="outlined"
+              {...register('phone', { required: true })}
+            />
           </FormControl>
         </Grid>
 

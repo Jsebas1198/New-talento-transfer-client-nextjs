@@ -23,7 +23,7 @@ const UserCards = ({ id, photo, name, lastName, email, phone, age }: IProps) => 
     if (id) {
       UserService.deleteUser(id)
         .then(() => {
-          toast('Producto eliminado exitosamente', { type: 'success' });
+          toast('Usuario eliminado exitosamente', { type: 'success' });
           router.reload();
         })
         .catch((err) => {

@@ -10,8 +10,9 @@ import { ICreateUser } from '../../interfaces/user/ICreateUser';
 import UserService from '../../services/UserService';
 import { calculateAge } from '../../utils/age';
 import { handlerCatchError } from '../../utils/handleErrors';
+import { IProps } from './IProps';
 
-const FormWrapper = () => {
+const FormWrapper = ({ user }: IProps) => {
   const router = useRouter();
   const {
     register,
@@ -26,6 +27,9 @@ const FormWrapper = () => {
   const [userAge, setUserAge] = useState<number>(0);
   type FormValues = Record<string, any>;
 
+  /**
+   * @description Función para crear un usuario
+   */
   const createUser = async (data: ICreateUser) => {
     const { name, lastName, email, phone } = data;
 
@@ -38,13 +42,45 @@ const FormWrapper = () => {
       age: userAge,
     })
       .then(() => {
-        toast.success('Se creó el producto exitosamente');
+        toast.success('Se creó el usuario exitosamente');
         router.push('/users');
       })
       .catch((err) => {
         handlerCatchError(err, ['Error al crear un usuario']);
       });
   };
+
+  /**
+   * @description Función para editar un usuario
+   */
+  const editUser = async (data: ICreateUser) => {
+    if (user?._id) {
+      const { name, lastName, email, phone } = data;
+
+      UserService.updateUser(
+        {
+          name,
+          lastName,
+          email,
+          phone,
+          photo: userImage.url,
+          age: userAge,
+        },
+        user._id
+      )
+        .then(() => {
+          toast.success('Se modificó el usuario exitosamente');
+          router.push('/users');
+        })
+        .catch((err) => {
+          handlerCatchError(err, ['Error al crear un usuario']);
+        });
+    }
+  };
+
+  /**
+   * @description Función para procesar un archivo de una imagen y actualizar el estado de la imagen del usuario.
+   */
   const handleImageChange = (file: File) => {
     const reader = (readFile: File) =>
       new Promise<string>((resolve, reject) => {
@@ -61,11 +97,15 @@ const FormWrapper = () => {
     );
   };
 
+  /**
+   * @description Función para encontrar los años del usuario
+   */
   const handleDateChange = (date: any) => {
     const selectedDate = new Date(date.$d);
     const age = calculateAge(selectedDate);
     setUserAge(age);
   };
+
   return (
     <Box
       sx={{
@@ -79,9 +119,11 @@ const FormWrapper = () => {
         handleSubmit={handleSubmit}
         handleImageChange={handleImageChange}
         onFinishHandler={createUser}
+        editUser={editUser}
         date={date}
         handleDateChange={handleDateChange}
         userImage={userImage}
+        user={user}
       />
     </Box>
   );

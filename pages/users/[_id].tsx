@@ -6,6 +6,7 @@ import {
 } from 'next';
 import UserService from '../../src/services/UserService';
 import { parseObjectsProps } from '../../src/utils/parse';
+import FormWrapper from '../../src/components/FormWrapper';
 
 /**
  * @description Para renderizar la pagina de manera dinamica
@@ -34,7 +35,11 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
 };
 
 const UserEdit = ({ user }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  return <div></div>;
+  return (
+    <div>
+      <FormWrapper user={user} />
+    </div>
+  );
 };
 
 export default UserEdit;
