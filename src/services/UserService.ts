@@ -31,10 +31,10 @@ export default class UserService {
    */
   public static async getUserById(userId: string): Promise<MUser> {
     try {
-      const { data: userResponse }: AxiosResponse<IHttpResponse<IUser>> = await axiosInstance.get(
+      const { data: userResponse }: AxiosResponse<IUser> = await axiosInstance.get(
         `/users/${userId}`
       );
-      return new MUser(userResponse.data);
+      return new MUser(userResponse);
     } catch (error) {
       return Promise.reject(error);
     }

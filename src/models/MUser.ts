@@ -1,7 +1,7 @@
 import { IUser } from '../interfaces//user/IUser';
 
 export default class MUser {
-  public id?: string | undefined;
+  public _id: string;
   public name: string;
   public lastName: string;
   public email: string;
@@ -10,7 +10,7 @@ export default class MUser {
   public age: number;
 
   constructor(user: IUser) {
-    this.id = user.id;
+    this._id = user._id;
     this.name = user.name;
     this.lastName = user.lastName;
     this.email = user.email;

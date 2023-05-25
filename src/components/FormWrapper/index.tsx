@@ -28,7 +28,7 @@ const FormWrapper = () => {
 
   const createUser = async (data: ICreateUser) => {
     const { name, lastName, email, phone } = data;
-    console.log(typeof userAge);
+
     UserService.create({
       name,
       lastName,
@@ -39,7 +39,7 @@ const FormWrapper = () => {
     })
       .then(() => {
         toast.success('Se creó el producto exitosamente');
-        router.push('/creado');
+        router.push('/users');
       })
       .catch((err) => {
         handlerCatchError(err, ['Error al crear un usuario']);

@@ -2,9 +2,36 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, CardActions, Button } from '@mui/material';
 import { IProps } from './IProps';
+import UserService from '../../services/UserService';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
-const UserCards = ({ photo, name, lastName, email, phone, age }: IProps) => {
-  // Assuming you have an array of card data
+const UserCards = ({ id, photo, name, lastName, email, phone, age }: IProps) => {
+  const router = useRouter();
+
+  /**
+   * @description Elimina un usuario
+   */
+  const goToEdit = () => {
+    router.push(`/users/${id}`);
+  };
+
+  /**
+   * @description Elimina un usuario
+   */
+  const deleteUser = () => {
+    if (id) {
+      UserService.deleteUser(id)
+        .then(() => {
+          toast('Producto eliminado exitosamente', { type: 'success' });
+          router.reload();
+        })
+        .catch((err) => {
+          console.log('[DELETE PRODUCT ERROR]: ', err);
+          toast('Error inesperado, intente más tarde', { type: 'error' });
+        });
+    }
+  };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -24,8 +51,14 @@ const UserCards = ({ photo, name, lastName, email, phone, age }: IProps) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Edit</Button>
-        <Button size="small">Delete</Button>
+        <Button size="small">
+          <Typography color="blue" onClick={goToEdit}>
+            Edit
+          </Typography>
+        </Button>
+        <Button size="small" onClick={deleteUser}>
+          <Typography color="red">Delete</Typography>
+        </Button>
       </CardActions>
     </Card>
   );
