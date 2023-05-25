@@ -31,18 +31,20 @@ export const getServerSideProps: GetServerSideProps<{ users: any }> = async () =
 const ShowAllUsers = ({ users }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // const usersResponse = await UserService.getUsers();
   return (
-    <Box>
+    <Box display="flex" justifyContent="center" alignItems="center">
       <Grid container spacing={2}>
         {users.map((user: MUser) => (
-          <UserCards
-            name={user.name}
-            lastName={user.lastName}
-            email={user.email}
-            phone={user.phone}
-            age={0}
-            photo={user.photo}
-            key={user.name}
-          />
+          <Grid item key={user.name} xs={12} sm={6} md={4} lg={3}>
+            <UserCards
+              name={user.name}
+              lastName={user.lastName}
+              email={user.email}
+              phone={user.phone}
+              age={0}
+              photo={user.photo}
+              key={user.name}
+            />
+          </Grid>
         ))}
       </Grid>
     </Box>
