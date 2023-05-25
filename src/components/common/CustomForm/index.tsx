@@ -15,6 +15,7 @@ import { ChangeEvent, useState } from 'react';
 
 import CustomButton from '../CustomButton';
 import { IProps } from './IProps';
+import Link from 'next/link';
 
 const CustomForm = ({
   register,
@@ -223,8 +224,24 @@ const CustomForm = ({
           </Stack>
         </Grid>
       </Grid>
-
-      <CustomButton type="submit" title={'Submit'} backgroundColor="#475be8" color="#fcfcfc" />
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        gap={1}
+        alignItems="center"
+        paddingTop={{ sm: '30px' }}
+        display={{ xs: '', sm: 'flex' }}
+        justifyContent={{ xs: '', sm: 'space-between' }}
+      >
+        <CustomButton type="submit" title={'Submit'} backgroundColor="#475be8" color="#fcfcfc" />
+        <Link href={`/users`}>
+          <CustomButton
+            title={'Ver usuarios'}
+            backgroundColor="#475BE8"
+            color="#FCFCFC"
+            fullWidth
+          />
+        </Link>
+      </Stack>
     </form>
   );
 };

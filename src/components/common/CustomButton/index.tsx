@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import React from 'react';
 import { IProps } from './IProps';
 
-const CustomButton = ({ type, title, backgroundColor, color, fullWidth, icon, disabled, handleClick }: IProps) => {
+const CustomButton = ({ type, title, backgroundColor, color, fullWidth, disabled, handleClick }: IProps) => {
   return (
     <Button
       disabled={disabled}
@@ -25,7 +25,6 @@ const CustomButton = ({ type, title, backgroundColor, color, fullWidth, icon, di
       }}
       onClick={handleClick}
     >
-      {icon}
       {title}
     </Button>
   );

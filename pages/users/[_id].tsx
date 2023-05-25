@@ -4,6 +4,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from 'next';
+
 import UserService from '../../src/services/UserService';
 import { parseObjectsProps } from '../../src/utils/parse';
 import FormWrapper from '../../src/components/FormWrapper';

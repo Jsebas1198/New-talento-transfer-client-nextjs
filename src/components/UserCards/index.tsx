@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, CardActions, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, CardActions, Button, Box } from '@mui/material';
 import { IProps } from './IProps';
 import UserService from '../../services/UserService';
 import { toast } from 'react-toastify';
@@ -34,12 +34,14 @@ const UserCards = ({ id, photo, name, lastName, email, phone, age }: IProps) => 
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ height: '350px', maxWidth: 345 }}>
       <CardMedia component="img" height="140" image={photo} alt={name} />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name + ' ' + lastName}
-        </Typography>
+        <Box sx={{ height: '70px' }}>
+          <Typography gutterBottom variant="h5" component="div">
+            {name + ' ' + lastName}
+          </Typography>
+        </Box>
         <Typography variant="body2" color="text.secondary">
           {email}
         </Typography>
